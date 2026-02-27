@@ -61,7 +61,7 @@ fun MainMenu(modifier: Modifier = Modifier) {
     ) {
         Text("Mini Proyectos")
 
-        // Boton del CounterApp
+        // CounterApp Botón 
         Button(
             onClick = {
                 val intent = Intent(context, CounterAppActivity::class.java)
@@ -72,7 +72,7 @@ fun MainMenu(modifier: Modifier = Modifier) {
             Text("Counter App")
         }
 
-        // Boton del TodoApp
+        // TodoApp Botón
         Button(
             onClick = {
                 val intent = Intent(context, TodoAppActivity::class.java)
@@ -83,7 +83,7 @@ fun MainMenu(modifier: Modifier = Modifier) {
             Text("Todo App")
         }
 
-        // Boton de TriviaApp
+        // TriviaApp Botón
         Button(
             onClick = {
                 val intent = Intent(context, TriviaAppActivity::class.java)

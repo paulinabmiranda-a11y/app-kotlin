@@ -92,7 +92,7 @@ fun QuestionScreen(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
 
-        // ── Fila superior: progreso + vidas ──────────────────────────────
+        // Fila superior: progreso + Vidas
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -102,7 +102,7 @@ fun QuestionScreen(
                 text = "Pregunta ${state.currentIndex + 1} de ${state.questions.size}",
                 style = MaterialTheme.typography.titleMedium
             )
-            // Vidas: muestra ❤️ por cada vida restante
+            // Mostrar ❤️ por cada vida restante
             val heartsDisplay = "❤️".repeat(state.lives) + "🖤".repeat(3 - state.lives)
             Text(
                 text = heartsDisplay,
@@ -110,13 +110,13 @@ fun QuestionScreen(
             )
         }
 
-        // ── Título de la pregunta ─────────────────────────────────────────
+        // Título de la pregunta
         Text(
             text = q.title,
             style = MaterialTheme.typography.headlineSmall
         )
 
-        // ── Opciones ──────────────────────────────────────────────────────
+        // Opciones 
         q.options.forEachIndexed { index, option ->
             val isSelected = state.selectedIndex == index
 
@@ -142,7 +142,7 @@ fun QuestionScreen(
             }
         }
 
-        // ── Feedback ──────────────────────────────────────────────────────
+        // Feedback
         if (state.feedback != null) {
             val (emoji, msg, color) = when (state.feedback) {
                 Feedback.CORRECT -> Triple("✅", "¡Correcto!", Color(0xFF388E3C))
@@ -163,9 +163,9 @@ fun QuestionScreen(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        // ── Botón principal ───────────────────────────────────────────────
+        // Botón principal
         if (state.feedback == null) {
-            // Aún no confirmó → mostrar Confirmar
+            // Aún no Confirma, mostrar Confirmación
             Button(
                 onClick = onConfirm,
                 enabled = state.selectedIndex != null,
@@ -174,7 +174,7 @@ fun QuestionScreen(
                 Text("Confirmar")
             }
         } else {
-            // Ya confirmó → avanzar
+            // Ya confirmó, avanzar
             val buttonLabel = if (state.isLastQuestion || state.lives <= 0) "Ver resultados" else "Siguiente"
             Button(
                 onClick = onNext,
@@ -184,7 +184,7 @@ fun QuestionScreen(
             }
         }
 
-        // ── Porcentaje de avance ──────────────────────────────────────────
+        // Porcentaje de avance 
         val progress = ((state.currentIndex + 1).toFloat() / state.questions.size * 100).toInt()
         Text(
             text = "Porcentaje de avance: $progress%",
