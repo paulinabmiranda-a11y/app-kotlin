@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,8 +37,9 @@ class TriviaAppActivity : ComponentActivity() {
                             title = { Text("Trivia App", color = Color.White) },
                             navigationIcon = {
                                 IconButton(onClick = { finish() }) {
+                                    // CORRECCIÓN: Usamos Icons.Default.ArrowBack
                                     Icon(
-                                        imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                                        imageVector = Icons.Default.ArrowBack,
                                         contentDescription = "Volver",
                                         tint = Color.White
                                     )
@@ -91,7 +92,6 @@ fun QuestionScreen(
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        // 1. Barra superior: Progreso textual y Corazones (Tick 3 y 5)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -105,10 +105,8 @@ fun QuestionScreen(
             Text(text = heartsDisplay, style = MaterialTheme.typography.titleMedium)
         }
 
-        // 2. Título de la pregunta
         Text(text = q.title, style = MaterialTheme.typography.headlineSmall)
 
-        // 3. Opciones de respuesta
         q.options.forEachIndexed { index, option ->
             val isSelected = state.selectedIndex == index
             ElevatedCard(
@@ -124,7 +122,6 @@ fun QuestionScreen(
             }
         }
 
-        // 4. Feedback (Tick 1)
         if (state.feedback != null) {
             val (emoji, msg, color) = when (state.feedback) {
                 Feedback.CORRECT -> Triple("✅", "¡Correcto!", Color(0xFF388E3C))
@@ -140,11 +137,10 @@ fun QuestionScreen(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        // 5. Botón de acción (Tick 2 y 4)
         if (state.feedback == null) {
             Button(
                 onClick = onConfirm,
-                enabled = state.selectedIndex != null, // Botón desactivado si no hay selección
+                enabled = state.selectedIndex != null,
                 modifier = Modifier.fillMaxWidth()
             ) { Text("Confirmar") }
         } else {
@@ -152,7 +148,6 @@ fun QuestionScreen(
             Button(onClick = onNext, modifier = Modifier.fillMaxWidth()) { Text(label) }
         }
 
-        // 6. Porcentaje de avance (Tick 5)
         val progress = ((state.currentIndex + 1).toFloat() / state.questions.size * 100).toInt()
         Text(
             text = "Porcentaje de avance: $progress%",
